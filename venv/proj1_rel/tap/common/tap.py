@@ -32,52 +32,52 @@ class Tap(Tap_GPIO):
 
         """
 
-        Tap_GPIO.set_io_data(self, tms, tdi, 0)
-        Tap_GPIO.set_io_data(self, tms, tdi, 1)
+        set_io_data(self, tms, tdi, 0)
+        set_io_data(self, tms, tdi, 1)
 
         pass
 
     def reset(self):
         """ set TAP state to Test_Logic_Reset """
         # assert TMS for 5 TCKs in a row
-        self.toggle_tck(1, x)
-        self.toggle_tck(1, x)
-        self.toggle_tck(1, x)
-        self.toggle_tck(1, x)
-        self.toggle_tck(1, x)
+        self.toggle_tck(1, 0)
+        self.toggle_tck(1, 0)
+        self.toggle_tck(1, 0)
+        self.toggle_tck(1, 0)
+        self.toggle_tck(1, 0)
 
         pass
 
     def reset2ShiftIR(self):
         """ shift TAP state from reset to shiftIR """  # write state transition from Test-Logic_Reset to Shift-IR
 
-        self.toggle_tck(0, x)
-        self.toggle_tck(1, x)
-        self.toggle_tck(1, x)
-        self.toggle_tck(0, x)
-        self.toggle_tck(0, x)
+        self.toggle_tck(0, 0)
+        self.toggle_tck(1, 0)
+        self.toggle_tck(1, 0)
+        self.toggle_tck(0, 0)
+        self.toggle_tck(0, 0)
 
         pass
 
     def exit1IR2ShiftDR(self):
         """ shift TAP state from exit1IR to shiftDR """
 
-        self.toggle_tck(1, x)
-        self.toggle_tck(0, x)
-        self.toggle_tck(1, x)
-        self.toggle_tck(0, x)
-        self.toggle_tck(0, x)
+        self.toggle_tck(1, 0)
+        self.toggle_tck(0, 0)
+        self.toggle_tck(1, 0)
+        self.toggle_tck(0, 0)
+        self.toggle_tck(0, 0)
 
         pass
 
     def exit1DR2ShiftIR(self):
         """ shift TAP state from exit1DR to shiftIR """
 
-        self.toggle_tck(1, x)
-        self.toggle_tck(1, x)
-        self.toggle_tck(1, x)
-        self.toggle_tck(0, x)
-        self.toggle_tck(0, x)
+        self.toggle_tck(1, 0)
+        self.toggle_tck(1, 0)
+        self.toggle_tck(1, 0)
+        self.toggle_tck(0, 0)
+        self.toggle_tck(0, 0)
 
         pass
 
@@ -111,8 +111,8 @@ class Tap(Tap_GPIO):
 
         while (count < length):
 
-            self.toggle_tck(0, x)   # Issue TMS 0 to stay in Shift-IR or Shift-DR state
-            bit = Tap_GPIO.read_tdo_data()
+            self.toggle_tck(0, 0)   # Issue TMS 0 to stay in Shift-IR or Shift-DR state
+            bit = read_tdo_data()
             strBits = [bit] + strBits  # append newly read bit from TDO in FRONT
             count += 1
 
