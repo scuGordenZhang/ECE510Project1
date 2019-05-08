@@ -40,20 +40,29 @@ class smoke(unittest.TestCase):
         self.tap.reset()
         self.assertEqual("Test_Logic_Reset",self.loopback_monitor.cur_state)
 
-    @unittest.skip
+    #@unittest.skip
     def testReset2ShiftIR(self):
         self.tap.reset()
         self.tap.reset2ShiftIR()
         self.assertEqual("Shift_IR",self.loopback_monitor.cur_state)
         pass
+        
+    #@unittest.skip
+    def testExit1IR2ShiftDR(self):
+        self.tap.reset()
+        self.tap.reset2ShiftIR()
+        self.tap.shiftInData("100100")
+        self.tap.exit1IR2ShiftDR()
+        self.assertEqual("Shift_DR",self.loopback_monitor.cur_state)
+        pass
 
-    @unittest.skip
+    #@unittest.skip
     def testReadDeviceCode(self):
         self.tap.reset()
         self.tap.reset2ShiftIR()
-        self.tap.shiftInData()
+        self.tap.shiftInData("100100")
         self.tap.exit1IR2ShiftDR()
-        data = self.tap.shiftOutData()
-        self.assertEqual("My Value",data)
-        
+        rslt = self.tap.shiftOutData(32)
+        self.assertEqual("Shift_DR",self.loopback_monitor.cur_state)
+        #return rslt
         pass
